@@ -1,0 +1,155 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">Mongoose</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <p>Starter code:</p>
+  <ul>
+  <textarea name="name" rows="23" cols="80">
+  const mongoose = require("mongoose");
+
+  mongoose.set('useNewUrlParser', true);
+  mongoose.set('useUnifiedTopology', true);
+
+  mongoose.connect("mongodb://localhost:27017/fruitsDB")
+
+  const fruitSchema = new mongoose.Schema ({
+    name: String,
+    rating: Number,
+    review: String
+  });
+
+  const Fruit = mongoose.model("Fruit", fruitSchema);
+
+  const fruit = new Fruit ({
+    name: "Apple",
+    rating: 7,
+    review: "Pretty tasty"
+  });
+
+  fruit.save();
+  </textarea>
+    <li>
+      <code>mongoose.connect(...)</code> specifies the DB to connect to.
+    </li>
+    <li>
+      We then create a "schema", which specifies the structure of our documents.
+    </li>
+    <li>
+      <code>const Fruit = mongoose.model("Fruit", fruitSchema);</code> - We then create a model using the schema. The first argument defines the name of the collection. Note: If we specify the singular non-plural, mongoose will automatically rename it to the lowercase and plural version, e.g. <code>fruits</code>.
+    </li>
+    <li>
+      We then create a new object containing a new item for our database. We add it to the database using <code><em>objectName</em>.save()</code>
+    </li>
+    <li>
+      If we had several fruit instances, we can add them all to the database using <code>SchemaName.insertMany([objectName1, objectName2, ...], ...)</code>, e.g.: <br>
+  <textarea name="name" rows="8" cols="80">
+  Fruit.insertMany([kiwi, banana], function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Saved all the fruits");
+    }
+  });
+  </textarea>
+    </li>
+    <li>
+      We can search our model using the <code><em>ModelName.find(...)</em></code> method, e.g. <br>
+  <textarea name="name" rows="8" cols="80">
+    Fruit.find(function(err, fruits) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(fruits);
+      }
+    });
+  </textarea><br>
+      This returns all our fruits and stores them in an array called <code>fruits</code>.
+    </li>
+    <li>
+      <code>mongoose.connection.close();</code> - closes the connection to our mongoDB, therefore allows node to end the script once everything else is run.
+    </li>
+    <li>
+      Adding validation to schema: <br>
+  <textarea name="name" rows="13" cols="80">
+    const fruitSchema = new mongoose.Schema ({
+      name: {
+        type: String,
+        required: true
+      },
+      rating: {
+        type: Number,
+        min: 1,
+        max: 10
+      },
+      review: String
+    });
+  </textarea> <br>
+      You could also use <code>required: [true, "Name field required"]</code> to provide information about a validation error when it occurs.
+    </li>
+    <li>
+      To update an entry, we use the following type of syntax: <br>
+  <textarea name="name" rows="9" cols="80">
+    Fruit.updateOne({_id: "5f93fe28b199220608a1047e"}, {rating: 4}, function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Successfully updated the document");
+      }
+    });
+  </textarea>
+    </li>
+    <li>
+      To delete one entry, we can use: <br>
+      <code>Fruit.deleteOne({name: "banana"}, function(err) {<em>handle error callback</em>}); </code> <br>
+      To delete many entries, we can use: <br>
+      <code>Fruit.deleteMany({<em>condition(s)</em>}, function(err {...}))</code>
+    </li>
+    <li>
+      We can have schemas inside schemas to link objects together, e.g.:: <br>
+  <textarea name="name" rows="12" cols="80">
+    const personSchema = new mongoose.Schema ({
+      name: String,
+      age: Number,
+      favouriteFruit: fruitSchema
+    });
+
+    const amy = new Person({
+      name: "Amy",
+      Age: 17,
+      favouriteFruit: pineapple
+    })
+  </textarea> <br>
+    Stored within the <code>amy</code> document will be a full reference to the pineapple object, including the corresponding ObjectId.
+    </li>
+    <li>
+      The following code allows us to <code>$pull</code>an item from a an array of item documents within a list schema: <br>
+  <textarea name="name" rows="10" cols="80">
+    List.findOneAndUpdate(
+      {name: listName},
+      {$pull: {items: {_id: checkedItemId}}},
+      function(err, foundList) {
+        if (!err) {
+          res.redirect("/"+listName);
+        }
+      }
+    )
+  </textarea> <br>
+    Here we are tapping into the <code>list</code> document with the condition <code>name: <em>listName</em></code> we are then using the <code>$pull</code> operator from MongoDB to remove an item from the <code>items</code> array, with the condition <code>_id: checkedItemId</code>
+    </li>
+    <li>
+      I need to look more into <code>await</code> and <code>async in javascript</code> as on several occassions now, the script continues to run causing database issues such as duplication of input.
+    </li>
+  </ul>
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

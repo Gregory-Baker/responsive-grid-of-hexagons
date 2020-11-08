@@ -1,10 +1,8 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
-body {
-    background: rgb(123, 158, 158);
-}
+
 #hexGrid {
   display: flex;
   flex-wrap: wrap;
@@ -14,6 +12,15 @@ body {
   font-family: 'Raleway', sans-serif;
   font-size: 15px;
   list-style-type: none;
+}
+
+.fa-home {
+  color: #f5fcff;
+}
+
+.title{
+  padding-top: 20px;
+  padding-bottom: 30px;
 }
 
 .hex {
@@ -41,6 +48,7 @@ body {
 .hexIn * {
   position: absolute;
   visibility: visible;
+  background-color: #d3d3d3;
   outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
 }
 .hexLink {
@@ -54,6 +62,7 @@ body {
         -ms-transform: skewY(-30deg) rotate3d(0,0,1,60deg);
             transform: skewY(-30deg) rotate3d(0,0,1,60deg);
 }
+
 
 /*** HEX CONTENT **********************************************************************/
 .hex img {
@@ -79,11 +88,11 @@ body {
 .hex h1 {
   bottom: 50%;
   padding-top:50%;
-  font-size: 1.5em;
+  font-size: 2rem;
   z-index: 1;
-  -webkit-transform:translate3d(0,-100%,0);
+  /* -webkit-transform:translate3d(0,-100%,0);
       -ms-transform:translate3d(0,-100%,0);
-          transform:translate3d(0,-100%,0);
+          transform:translate3d(0,-100%,0); */
 }
 .hex h1::after {
   content: '';

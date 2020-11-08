@@ -1,0 +1,211 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">React</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <ul>
+    <li>
+      React allows us to embed html within our javascript code. We start by importing (same as requiring) the <code>react</code> and <code>react-dom</code> packages using: <br>
+  <textarea name="name" rows="3" cols="80">
+    import React from "react";
+    import ReactDOM from "react-dom";
+  </textarea>
+    </li>
+    <li>
+      We can now use the <code>ReactDOM.render(...)</code> method in our JS file to puplate our html tags with content, e.g.: <br>
+  <textarea name="name" rows="12" cols="80">
+    ReactDOM.render(
+    <div>
+      <h1>My favourite foods</h1>
+      <ul>
+        <li>Lasagne</li>
+        <li>Pizza</li>
+        <li>Carbonara</li>
+      </ul>
+    </div>,
+    document.getElementById("root")
+  );
+  </textarea> <br>
+      Note: the <code>render</code> mehtod can only take <strong>one</strong> html element, <strong>but</strong> this can comprise of multiple nested html tags, as shown here using a <code>&ltdiv></code> wrapper. This method targets a <code>&ltdiv></code> inside the <code>index.html</code> file with an <code>id="root"</code>.
+    </li>
+    <li>
+      We can use JS variables within the html inserts using <code>{<em>varName</em>}</code>, e.g.: <br>
+  <textarea name="name" rows="3" cols="80">
+    const name = "Greg";
+    ReactDOM.render(<h1>Hello {name}</h1>, document.getElementById("root"));
+  </textarea>
+    </li>
+    <li>
+      We can place any JavaScript expression between the curly braces, e.g.: <code>{Math.floor(Math.random() * 10)}</code>, which returns a random number between 0 and 10. However, we <strong>cannot</strong> write javascript <strong>statements</strong>, e.g. <code>if-else</code> statements.
+    </li>
+    <li>
+      Be sure to specify that the javascript script is JSX when it is called in the HTML document, e.g. <code>&ltscript src="../src/index.js" type="text/JSX">&lt/script></code>
+    </li>
+    <li>
+      When writing HTML in this way, the html attributes are slightly renamed, e.g. <code>class="heading"</code> in HTML -> <code>className="heading"</code> in JSX. <br>
+      All attributes with multiple words, which are written lowecase, no spaces in HTML -> camelCase in jsx, e.g. <code>contenteditable="true"</code> in HTML -> <code>contentEditable="true"</code> in JSX.
+    </li>
+    <li>
+      To inject inline style into JSX, we use javascript objects, instead of CSS syntax, e.g. <code>style="color: red; font-size: 8rem"</code> in HTML/CSS -> <code>style={{color: "red", fontSize: "8rem"}}</code> in JSX. <br>
+      Note: The double curly braces is because the JSX expects the value of the attribute to be in curly braces, and we are passing in a javascript object, which itself has curly braces. <br>
+      Note 2: We can now also change particular attributes using javascript dot notation, e.g. <code>customStyle.color = "blue";</code>
+    </li>
+    <li>
+      Simple JSX component: <br>
+  <textarea name="name" rows="12" cols="80">
+    function Heading() {
+      return <h1>My Favourite Foods</h1>
+    }
+
+    ReactDOM.render(
+      <div>
+        <Heading />
+      </div>,
+      document.getElementById("root")
+    );
+  </textarea> <br>
+      Note, usually the Heading function should be separated out into its own .jsx file called <code>Heading.jsx</code>, which resides the <code>.src</code> folder.<br>
+  <textarea name="name" rows="8" cols="80">
+    import React from "react";
+
+    function Heading() {
+      return <h1>My Favourite Foods</h1>;
+    }
+
+    export default Heading;
+  </textarea> <br>
+    We can then import it into our <code>index.js</code> file using <code>import Heading from "./Heading";</code>. Note:
+    </li>
+    <li>
+      Useful style guide for JSX found <a href="https://github.com/airbnb/javascript/tree/master/react">here</a>
+    </li>
+    <li>
+      To return multiple elements from a JSX Component, simply wrap them all inside brackets, e.g. <code>return(...)</code>.
+    </li>
+    <li>
+      Standard procedure is to import all JSX components into a file called <code>App.jsx</code>, which is then imported into <code>index.js</code> using <code>import App from "./App"</code> and then using <code>&ltApp /></code> in the <code>.render</code> method. Inside <code>App.js</code>, we import all our components and setup an <code>App</code> function which returns all components in their rightful order.
+    </li>
+    <li>
+      We should organise all our components in a <code>/components</code> folder, possibly with sub-directories
+    </li>
+    <li>
+      You can export multiple things from a single module. Only one can be the <code>default</code> export, the rest are exported in a separate export statement, and placed within curly braces, e.g.
+      <code>export {<em>exampleConst</em>, <em>exampleFunction</em>, ...}</code> <br>
+      Note: these are imported into our main JS script using curly braces, e.g. <code>import <em>defaultExport</em>, {<em>exampleConst</em>, <em>exampleFunction</em>} from exampleModule.js</code>. The names have to exactly match the names specified in the module, unlike the <code>defaultExport</code>, which can be called anything you like when imported. <br>
+      Note2: We can import all from a module using <code>import * as <em>objName</em> from <em>"ModName"</em> </code>. Now we would have to specify the module name each time we use a function/const from that module, e.g. <code>objName.exampleFunction()</code> or <code>objName.exampleConst</code>.
+    </li>
+    <li>
+      You cannot add classes to custom JSX tags, we need to apply them directly to standard HTML tags within our JSX components.
+    </li>
+    <li>
+      React Props - you can add inputs to your React module functions, usually using the name <code>props</code>, e.g. <br>
+  <textarea name="name" rows="11" cols="80">
+    function Card(props) {
+      return (
+        <div>
+          <h2>{props.name}</h2>
+          <img src={props.img} alt="avatar_img" />
+          <p>{props.tel}</p>
+          <p>{props.email}</p>
+        </div>
+      );
+    }
+  </textarea> <br>
+      Note: You pass the parameters into the react component using HTML-attribute-like syntax, but the names of each of these inputs are defined by you (unlike html attributes where they are pre-set). E.g.: <br>
+  <textarea name="name" rows="7" cols="80">
+    <Card
+      name="Beyonce"
+      img="https://beyonce.jpg"
+      tel="+123 456 789"
+      email="b@beyonce.com"
+    />
+  </textarea>
+    </li>
+    <li>
+      React DevTools allows us to see our React DOM tree, which shows us all our nested components and all the props that you have access to. This can be accessed in Chrome by adding the React developer tools Chrom extension, then navigating to the Components tab in the Chrome developer tools, which should appear when you are on a React-enabled website.
+    </li>
+    <li>
+      <strong>Map</strong> - the <code><em>arrayName</em>.map(<em>functionName</em>)</code> method cycles through all the elements in our array and uses them as inputs to the function. We can use this to populate our contact cards by first creating a function:
+  <textarea name="name" rows="8" cols="80"> <br>
+    function createCard(contact) {
+      return <Card
+        key={contact.id}
+        name={contact.name}
+        imgURL={contact.imgURL}
+        phone={contact.phone}
+        email={contact.email}
+      />;
+    }
+  </textarea> <br>
+      Then calling <code>{contacts.map(createCard)}</code> in our App.jsx module. This cycles through all the contacts in the contacts array and populates a card for each. Note, we don't use brackets after referring to our <code><em>functionName</em></code>, as this would call the function at the wrong point in the code. Also note, React needs the <code>key</code> parameter for this type of object created from a recurrent function call. It must be a unique value across all the repeated components, and must be called <code>key</code> as above.
+    </li>
+    <li>
+      <strong>Filter</strong> - Create a new array by keeping the items that return true. E.g.: <br>
+  <textarea name="name" rows="8" cols="80">
+    var numbers = [3, 32, 12, 7, 18]
+
+    const newNumbers = numbers.filter(function (num) {
+      return num > 10;
+    })
+
+    // newNumbers = [32, 12, 18]
+  </textarea>
+    </li>
+    <li>
+      <strong>Reduce</strong> - accumulate a value by doing something to each item in the array. E.g. <br>
+  <textarea name="name" rows="5" cols="80">
+    var newNumber = numbers.reduce(function(accumulator, currentNumber) {
+      return accumulator + currentNumber;
+    })
+
+    // newNumber is now the sum of all the values in the array
+  </textarea> <br>
+      Note: in the first iteration, the accumulator is set to the first value of the array and the currentNumber is set to the second value in the array. The next iteration the accumulator is set to the returned value from the first iteration and the currentNumber is set to the third value in the array. This continues until all values in the array have been used.
+    </li>
+    <li>
+      <strong>Find</strong> - finds the first item in the array that matches the criteria, e.g. <br>
+  <textarea name="name" rows="5" cols="80">
+    const newNumber = numbers.find(function (num) {
+      return num > 10;
+    })
+
+    // newNumber = 32
+  </textarea>
+    </li>
+    <li>
+      <strong>FindIndex</strong> - find the index of the first item in the array that matches the critera. E.g. using <code>.findIndex(...)</code> instead of <code>.find(...)</code> in the above snippet would return an array index of <code>1</code>.
+    </li>
+    <li>
+      <strong>Arrow <code>=></code> Functions</strong> - shorthand for <code>function(element) {<em>do something with element</em>}</code>, we can instead use <code>(element) => {<em>do something with element</em>}</code> e.g.: <br>
+  <textarea name="name" rows="4" cols="80">
+    const newNumbers = numbers.map( (x) => {
+      return x * x;
+    })
+  </textarea> <br>
+      Or, we can simplify this even further for a single input and single line functions to: <code>const newNumbers = numbers.map( x => x * x );</code> <br>
+      Example 2: <code>const newNumber = numbers.find(num => num > 10);</code> <br>
+      Example 3: <code>const newNumber = numbers.reduce((acc, num) => acc + num);</code>
+    </li>
+    <li>
+      <strong>Ternary</strong> operator - <code style="color: red">CONDITION ? DO IF TRUE : DO IF FALSE</code>, e.g. <br>
+      <code>{isLoggedIn ? &lth1>Hello&lt/h1> : &ltLogin />}</code> <br>
+      Note: you can set DO IF TRUE or DO IF FALSE value to <code>null</code> to not do anything in that condition.
+    </li>
+    <li>
+      <strong>AND</strong> operator - we can also use the AND (&amp;&amp;) operator to only run some code when a condition returns true, e.g. <br>
+      <code>showMessage &amp;&amp; &lth1>Hello&lt/h1></code> <br>
+      Note: this works because the second half of the AND condition is only run if the first condition returns true.
+    </li>
+  </ul>
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

@@ -1,0 +1,222 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">Javascript</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <h1>Javascript</h1>
+  <h3>Intro to Javascript</h3>
+  <ul>
+    <li>
+      You can run single javascript instructions in the Chrome Console (in developer tools) or multiline 'snippets' of code from the Sources tab of the inspector.
+    </li>
+    <li>
+      <a href="https://github.com/rwaldron/idiomatic.js">idiomatic.js</a> github repo has useful style guide for javascript best practices.
+    </li>
+    <li>
+      JS syntax: <code>type varName = function(input);</code>, e.g. <code>alert("Hello");</code> prints Hello to a pop-up in browser. <code>var name = prompt("What is your name?")</code> spawns a pop-up with a text-input field and saves the users
+      response to the variable name.
+    </li>
+    <li>
+      Concatenate strings using "+", e.g. "Hello " + "Greg" -> "Hello Greg".
+    </li>
+    <li>
+      {string}.length returns the number of characters in the string.
+    </li>
+    <li>
+      {string}.slice{x,y} returns a slice of the original string from position <code>x</code> to the character before position <code>y</code>, e.g. "Gregory".slice(0,4) returns "Greg".
+    </li>
+    <li>
+      <code>{string}.toUpperCase();</code> and <code>{string}.toLowerCase();</code> turn the string to all upper and all lower case respectively.
+    </li>
+    <li>
+      Mathematical operators - Addition: +; Subtraction: -; Multiplication: *; Division: /; Exponent: **; Modulo (remainder): % (e.g. 9%2 = 1, 9%3 = 0, 9%5 = 4); Increment 1: ++ (note var <code>var y = x++;</code> will assign <code>var y = x</code>
+      and then increment x by 1); Decrement 1: --; You can also use +=, -=, *=, /=, %=;
+    </li>
+    <li>
+      Function syntax: <code>function <em>funcName</em>(<em>inputName</em>){<em>code</em>}</code>. Note, no semicolon after curly brace in definition. To call this function, use <code>funcName(inputValue);</code>.
+    </li>
+    <li>
+      <code>Math.floor(<em>number</em>);</code> rounds down number to the nearest integer value.
+    </li>
+    <li>
+      <code>return <em>returnVal</em></code> before the closing bracket allows the function to return a value. Note, the return type does not have to be declared in the function declaration. <code>var <em>valueReturned</em> =
+        funcName(inputValue);</code> assigns the returned value to a variable.
+    </li>
+    <li>
+      Multiple inputs separated by comma, e.g. <code>function <em>func</em>(input1, input2, ...) {...}</code>.
+    </li>
+  </ul>
+
+  <h3>Intermediate Javascript</h3>
+  <ul>
+    <li>
+      Random number generator: <code>var n = Math.random();</code> outputs a value between a value between 0 to 0.999... (16 d.p.). To turn this to an integer between 0 <= n < max: <code>var n = Math.floor(Math.random() * max);</code>. Can add 1 to
+        make it 0 < n <=max; </li>
+    <li>
+      Comparators: <br>
+      Equality: == (doesn't care about type) or === (cares about types); <br>
+      Less than (<), Less than or equal to (<=), etc. all standard. </li>
+    <li>
+      If-Else syntax: <br>
+      <textarea rows="8" cols="50">
+if (i > 80) {
+  alert("That's a high score");
+} else if (i > 50) {
+  alert("That's a reasonable score");
+} else {
+  alert("That's a low score score");
+}</textarea>
+    </li>
+    <li>
+      And: <code>&&</code> <br> Or: <code>||</code> <br> Not: <code>!</code>
+    </li>
+    <li>
+      Arrays: <br>
+      <code>var arrName = [a1, a2, a3, ...]</code> - array elememts are enclosed in square brackets and comma separated. <br>
+      <code>var myElement = arrName[0]</code> returns the first element (index = 0) from the array. <br>
+      <code>arrName.length</code> - returns the number of elements in the array. <br> <code>arrName.includes(<em>myElement</em>)</code> - checks if <code>myElement</code> - is in the array. <br>
+      <code>arrName.push(myElement)</code> - adds element to the end of the array. <br>
+      <code>arrName.pop</code> - removes last element from array. <br>
+    </li>
+    <li>
+      While loop syntax: <br>
+      <code>while(i < 2) { <em>do something</em>; i++; }</code>
+    </li>
+    <li>
+      For loop syntax: <br>
+      <code>for (var i = 1; i < 101; i++) { <em>do something</em> }</code>
+    </li>
+
+  </ul>
+
+  <h3>Document Object Model (DOM)</h3>
+  <ul>
+    <li>
+      Inline javascript can be achieved using <code>onbody</code> attribute in HTML tag, e.g. <br>
+      <code>&ltbody onbody="alert('Hello')"> ... </code> <br>
+      will fire an alert when the page is opened.
+    </li>
+    <li>
+      You can also write javascript code inside a script, using the method below: <br>
+      &ltscript type = "javascript"> <em>javascript code</em> &ltscript>
+    </li>
+    <li>
+      Or you can link a separate javascript script (called index.js), using: <br>
+      &ltscript src="index.js" charset="utf-8">&lt/script>
+    </li>
+    <li>
+      The entire HTML document is structured as an object. We can drill down through this hierachy in javascript to get to the element we need, then change the properties of the element, or call one of its methods. E.g. <br>
+      <code>document.querySelector("input").click();</code>, or <br>
+      <code>document.querySelector("h1").style.color = "red";</code>
+    </li>
+    <li>
+      If an element does not have a unique tag, then we can use array notation, e.g. <br>
+      <code>document.getElementsByTagName("li")[2].style.color = "purple";</code>
+    </li>
+    <li>
+      Other useful selectors: <br>
+      <code>document.getElementsByClassName("<em>className</em>")</code> <br>
+      <code>document.getElementByID("id")</code> - note as tags are unique, this will return a single element, rather than an array. <br>
+      <code>document.querySelector("<em>selector(s)</em>")</code> - this can be an element, class, or ID, and we can combine selectors (using the same notation as CSS). <br>
+      <code>document.querySelectorAll("<em>selector(s)</em>")</code> returns an array of all elements with the specified selector(s).
+    </li>
+    <li>
+      Notes: <br>
+      When changing CSS properties in javascript, the names are in camelCase instead of dash-separated, e.g. font-size (CSS) -> fontSize (javascript) <br>
+      In javascript, values have to be specified in string format, e.g. <code>document.querySelector("h1").style.backgroundColor = "red";</code>
+    </li>
+    <li>
+      You can add class to an HTML element using: <br> <code>.classList.add("<em>className</em>")</code> method. <br> <br>
+      Similarly you can remove it using: <br>
+      <code>.classList.remove("<em>className</em>")</code> method. <br> <br>
+      Or toggle the class using: <br>
+      <code>.classList.toggle("<em>className</em>")</code> method. <br>
+    </li>
+    <li>
+      You can add HTML tags by manipulating <code>.innerHTML</code>, or just the text using <code>.innerText</code>
+    </li>
+    <li>
+      Reminder: the <em>attributes</em> of an HTML tag are the things that go inside the tag (apart from the tags themselves), e.g. class, style, href, ... <br>
+      These can be targetted using the <code>.setAttribute()</code>
+    </li>
+  </ul>
+
+  <h3>Advanced Javascript</h3>
+  <ul>
+    <li>
+      <code>.addEventListener("<em>eventName</em>", <em>funcName</em>)</code> calls the <em>funcName</em> function when <em>eventName</em> occurs, e.g. <code>.addEventListener("click", clickHandler);</code>. <br>
+      Note: if you add brackets after <em>funcName</em> (like a normal function call), then the function will be called whenever this event listener is initialised, so most of the time we don't need them. <br>
+    </li>
+    <li>
+      We can use an anonymous function inline in place of a call to an external function, using the sytnax: <br>
+      <code>.addEventListener("<em>eventName</em>", function() {<em>do something</em>})</code>
+    </li>
+    <li>
+      To enter debugger mode in chrome developer tools, type <code>debugger;</code>, then <code>shift + enter</code>, then call the function/snippet you want to run through step-by-step.
+    </li>
+    <li>
+      <code>this</code> keyword inside an event listener can be used to select the element that triggered the event.
+    </li>
+    <li>
+      Object syntax:<br>
+      <textarea rows="6" cols="50">
+var objectName= {
+  property1: value,
+  property2: value,
+  ...
+}
+</textarea>
+    </li>
+    <li>
+      Constructor function syntax: (function name has to be capitalised)<br>
+      <textarea rows="6" cols="50">
+function ObjectName= (property1, property2, ...){
+  this.property1 = property1;
+  this.property2 = property2;
+  ...
+}
+</textarea> <br>
+      To call this we use <code>var objectInstanceName = new ObjectName(property1, property2, ...)</code>
+    </li>
+    <li>
+      Switch statement sytnax: <br>
+      <textarea rows="12" cols="50">
+switch(objectToCompare) {
+  case case1Value:
+    do something;
+    break;
+
+  case case2value:
+    do something else;
+    break;
+
+  ...
+}
+</textarea>
+    </li>
+    <li>
+      You can include methods in your object constructor function using the sytnax: <br>
+      <code>this.<em>methodName</em> = function() {<em>do something</em>}</code>
+    </li>
+    <li>
+      Include <code>event</code> as an input to the anonymous function for <code>"keydown"</code> events allows you to retrieve things like the pressed key, key stroke length, etc. E.g.: <br>
+      <code>document.addEventListener("keydown", function(event) { makeSound(event.key) })</code>
+    </li>
+    <li>
+      <code>setTimout(<em>funcName</em>, <em>delay</em>)</code> - triggers <em>funcName</em> in <em>delay</em> ms
+    </li>
+
+
+  </ul>
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

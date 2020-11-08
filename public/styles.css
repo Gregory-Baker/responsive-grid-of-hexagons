@@ -1,0 +1,46 @@
+body {
+    background: #f5fcff;
+    font-family: 'Raleway', sans-serif;
+}
+
+code {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    color: #666;
+    font-family: monospace;
+    font-size: 1.2rem;
+}
+
+.fa-home {
+  color: #7f7f7f;
+  position: fixed;
+}
+
+.preTitle {
+  font-family: 'Pacifico', cursive;
+}
+
+.pageTitle{
+  /* color: #fff; */
+  font-family: 'Raleway', sans-serif;
+  font-size: 4rem;
+}
+
+.pageBody li {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.footer {
+	position: static;
+	text-align: center;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+}
+
+.footer p {
+	margin-top: 40px;
+	font-size: 20px;
+  color: #7f7f7f;
+}

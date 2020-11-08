@@ -1,0 +1,107 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">Bootstrap</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <a name="bootstrap"></a>
+  <h1>Bootstrap</H1>
+  <h3>Introduction to Boostrap</h3>
+  <ul>
+    <li>
+      Bootstrap is basically a set of premade css (+ javascript +html) files that make it very quick and easy to style your website
+    </li>
+    <li>
+      Bootstrap can be loaded using a link in the header, e.g.: <br>
+      <code>&ltlink rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"></code>
+    <li><a href="https://getbootstrap.com/docs/4.5/getting-started/introduction/">getbootstrap.com</a> is a great place for bootstrap examples and resources</li>
+    <li>
+      <a href="http://ui-patterns.com/">ui-patterns.com/</a> and <a href="https://dribbble.com/">dribbble.com/</a> for examples of different websites and UI components
+    </li>
+    <li>
+      <a href="https://balsamiq.com/">balsamiq.com</a> for wireframing (paid software)
+    </li>
+    <li>
+      <code>&ltnav></code> used for navigation bar divider, instead of <code>&ltdiv></code>
+    </li>
+    <li>
+      It is possible to have elements of the nav bar collapse into a "hamburger" menu. see #toggler section of the navbar documentation.
+    </li>
+    <li>
+      Can use <code>&ltdiv class="row"></code> and <code>&ltdiv class="col"></code> to make rows and columns, similar to a <code>&lttable></code>. It will divide the row by however many columns are inside it. As far as I am aware, columns need to be
+      inside a row div.
+    </li>
+    <li>
+      Can also use <code>&ltdiv class="col-6"></code> for a half width column (doesn't require other columns). Full width = 12, so you can use any number between 1-12 to get the appropriate width column
+    </li>
+    <li>
+      For <strong>responsive</strong> rows, i.e. ones that change layout depending on the size of the user's screens, we can use <code>&ltdiv class="col-{<em>size</em>}-6"></code>, where <em>size</em> is {xs, sm, md, lg, xl}, specifies the size of
+      the screen that you want to set that column width for. Loosely speaking, small (sm) = smartphone size screen, medium (md) = tablet size screen, and large (lg) = laptop screen size.
+    </li>
+    <li>
+      These rules can be stacked to specify different column widths for different screen sizes, e.g. <code>&ltdiv class="col-lg-3 col-md-4 col-sm-6"></code>
+    </li>
+    <li>
+      <code>&ltdiv class="container"></code> provides a container for our code elements, including padding and centering. The default container jumps between various "max-width" values as the screen size changes, meaning that there is a gap between
+      the container and the edge of the screen on both sides (except for very small screens).
+    </li>
+    <li>
+      <code>&ltdiv class="container"></code> is similar, but it does not leave any space between the container and the edge of the screen.
+    </li>
+    <li>
+      Used <a href="https://fontawesome.com">fontawesome.com</a> for icons.
+    </li>
+    <li>
+      Rotate an object using <code>transform: rotate(<em>angle</em>)</code>, e.g. <code>transform: rotate(25deg)</code>
+    </li>
+  </ul>
+
+  <h3>Intermediate Boostrap</h3>
+  <ul>
+    <li>
+      Used a Bootstrap carousel to display testimonials. Setting <code>data-ride="false"</code> (rather than <code>data-ride="carousel"</code>) stops the carousel from sliding automatically. You can also change the interval of the slide using
+      <code>data-interval="<em>{time(ms)}</em>"</code>
+    </li>
+    <li>
+      <a href="https://bootsnipp.com">Bootsnip</a> has elements that can be cut-and-pasted into our website, such as login snippets, pricing options and much more.
+    </li>
+    <li>
+      Bootstrap <strong>cards</strong> are blocks that we can use in our website. They can have a <code>card-header, card-body</code>, and <code>card-footer</code>. You can nest cards within a <code>&ltdiv class="card-deck"></code> for consistency,
+      or for a more customisable layout options, you can nest them within a <code>row</code> and <code>col</code> structure instead.
+    </li>
+    <li>
+      <code>z-index: {val};</code> can be used to place objects on top of other objects. z-index = 0 by default, so setting z-index > 0 renders that object on top of non-indexed objects and z-index < 0 renders that object behind. For z-index to work,
+        relevant objects need to be 'positioned' . Remember <code>position: absolute;</code> takes the object out of the html 'flow', whereas <code>position: relative;</code> does not.
+    </li>
+    <li>
+      Media query: wrapping CSS code in <code>@media [type] [feature] { CSS code }</code> specifies when that CSS should be used. [type] e.g. print, screen, speech. [feature], e.g. (max-width: 900px). Can be combined using <code>and</code>, e.g.
+      <code>@media (min-width:900px) and (max-width: 1500px) { CSS }</code>.
+    </li>
+    <li>
+      You can have multiple selectors, e.g. <code>#title .container-fluid { CSS styles }</code> will apply the CSS style you specify to all elements with a <code>container-fluid</code> class that sit within an element with an ID of
+      <code>title</code>. Parent written first, child written second. Space between parent and child selectors is important here.
+    </li>
+    <li>
+      You can also combine selectors, e.g. <code>div.container-fluid { CSS style }</code> which selects a <code>div</code> element <strong>with</strong> a <code>.container-fluid</code> class. For combined selectors, there should not be a space
+      between the two selectors. It could also be two classes, instead of an element and class.
+    </li>
+    <li>
+      CSS reminder: priority of styling - inline style > ID > class > element
+    </li>
+    <li>
+      Helpful tips: <br />
+      - Use IDs sparingly, only when you can't use a class, e.g. for sections. <br>
+      - Use specific, custom classes rather than generic ones <br>
+      - Don't use inline styles
+    </li>
+  </ul>
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

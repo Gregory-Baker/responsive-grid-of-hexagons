@@ -1,0 +1,62 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">Command Line</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+  <p>Shortcuts:</p>
+  <ul>
+    <li>
+      <code>ctrl + a</code>: go to beginning of line.
+    </li>
+    <li>
+      <code>ctrl + e</code>: go to end of line.
+    </li>
+    <li>
+      <code>ctrl + u</code>: clear line.
+    </li>
+  </ul>
+
+  <p>File and Folder Manipulation:</p>
+  <ul>
+    <li>
+      <code>touch <em>file.type</em></code>: creates a new file called <em>file.type</em>.
+    </li>
+    <li>
+      <code>start <em>file.type</em></code>: opens the file, if it has a registered extension (filetype)
+    </li>
+    <li>
+      <code><em>Program file.type</em></code>: opens the file in the specified program.
+    </li>
+    <li>
+      <code>rm <em>file.type</em></code>: removes the file.
+    </li>
+    <li>
+      <code>rm *</code>: removes all files in that directory.
+    </li>
+    <li>
+      <code>rm -r <em>FolderName</em></code>: the 'recursive' flag (-r) allows you to delete folders.
+    </li>
+  </ul>
+  <p>Other Commands:</p>
+  <ul>
+    <li>
+      <code>pwd</code>: present working directory - prints the file path of the current directory.
+    </li>
+    <li>
+      <code>clear</code> - clears terminal screen.
+    </li>
+    <li>
+      <code>rs</code> - restart nodemon server
+    </li>
+  </ul>
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

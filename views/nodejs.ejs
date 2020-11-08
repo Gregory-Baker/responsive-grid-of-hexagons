@@ -1,0 +1,101 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">Node.js</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <h1>Node.js</h1>
+  <ul>
+    <li>
+      Node.js allows you to run javascript code that interacts with the actual PC hardware, rather than just the browser. This can be used to create fully fledged desktop applications. In web develeopment, it is used to run javascript code on server pc's which can then be served
+    </li>
+    <li>
+      <code>node <em>index.js</em></code> - runs a javascript file called <em>index.js</em> in the terminal. Outputs, e.g. console.log("<em>Statemet</em>") are printed to the terminal.
+    </li>
+    <li>
+      <code>node</code> commnad enters Node REPL (Read Evaluation Print Loops). To exit, either use <code>.exit</code> or <code>Ctrl + c</code> twice.
+    </li>
+    <li>
+      <code>const fs = require("fs");</code> - tells our script that we require the "fs" (filesystem) module from Node. Methods include <code>fs.copyFileSync(<em>srcName</em>, <em>destinationName</em>)</code> which copies a file.
+    </li>
+    <li>
+      <code>const</code> = constant in javascript and can be used instead of <code>var</code> if the object being created is immutable.
+    </li>
+    <li>
+      npm = Node Package Manager - third-party reusable code for Node. There are loads of packages listed on <a href="https://www.npmjs.com">npmjs.com</a>
+    </li>
+    <li>
+      <code>npm init</code> - in your directory initialises a <code>package.json</code> file, which contains package dependencies. Include <code>-y</code> flag to accept default setup parameters.
+    </li>
+    <li>
+      <code>npm install <em>packageName</em></code> inside our package directory adds the dependency to our project. We can then use it in our code using the require method, e.g. <code>const <em>packageName</em> = require("<em>packageName</em>");</code>
+    </li>
+    <li>
+      <code>npm install</code> with no package name installs all the modules that are specified in the <code>package.json</code>
+    </li>
+  </ul>
+
+  <h3>Express.js</h3>
+  <ul>
+    <li>
+      The Express.js package simplifies node.js for server-side applications.
+    </li>
+    <li>
+      <code>npm install express</code> to install express in our project.
+    </li>
+    <li>
+      <code>const express = require("express");</code> required in our <code>server.js</code> script.
+    </li>
+    <li>
+      <code>const app = express();</code> - this is frequently added at the top of the script as well to simplify notation
+    </li>
+    <li>
+      <code>app.listen(3000);</code> - this commands our script to listen on port 3000
+    </li>
+    <li>
+      <code>app.get("/", function(request, response) { <br>
+        &emsp; response.send("Hello"); <br>
+      });</code> <br>
+      - This should be placed above the listener. When a browser tries to access port 3000, the anonynous function is called. The <code>request</code> object contains a large amount of information about the request. The <code>response</code> object is used to provide information back to the browser, such as a webpage (HTML, CSS, Javascript files etc.). The <code>app.get("/"...)</code> denotes that this is the response to a request at the root. We could use <code>app.get("/<em>page-name</em>/" ... )</code> instead to respond to a request on a different page, e.g. <code>localhost:3000/page-name</code>
+    </li>
+    <li>
+      Note: most express developers use <code>req</code> and <code>res</code> as shorthand for <code>request</code> and <code>response</code>.
+    </li>
+    <li>
+      Downloaded <strong>nodemon</strong> package (using <code>npm install -g nodemon</code>), which automatically restarts the server node when the source code is changed. Use <code>nodemon <em>myNode.js</em></code> to start node, instead of <code>node <em>myNode.js</em></code>. Note: nodemon only needs to be installed in hyper once, from any directory, and doesn't need to be added as a dependency for each package you write.
+    </li>
+    <li>
+      <code>res.sendFile(__dirname + "/<em>filename.html</em>")</code>To send an html file as a response. The <em>__dirname</em> part specifies the directory where your javascript file is running. As the html file is in the same directory, the sytem can now find the html file.
+    </li>
+    <li>
+      In order to take the user's input from an html form, we used the following steps:
+      <ul>
+        <li>
+          In the index.html file, within the <code>form</code> tag, we changed the <code>action</code> attribute from <code>"index.html"</code> to <code>"/"</code> to indicate we want to send the filled-in form back to the server. Note the method attribute of the form is set to <code>"post"</code>.
+        </li>
+        <li>
+          We installed the body-parser npm package to our project and added it to our calculator.js script using the <code>require</code> method: <code>const bodyParser = require("body-parser");</code>
+        </li>
+        <li>
+          We added <code>app.use(bodyParser.urlencoded({extended: true}));</code> to tell the body parser how to interpret the information that the user sends.
+        </li>
+        <li>
+          We added an <code>app.post("/", function(req, res) {"<em>some action</em>"})</code> method which dictates what happens when the user posts information. The numbers the user submitted were accessed using <code>req.body.num1</code> and <code>req.body.num2</code>, where <code>num1</code> and <code>num2</code> were the <code>name</code> attributes specified for the two <code>input</code> tags in our html form - i.e. <code>&ltinput type="text" name="num1" placeholder="First Number"></code>. Note, these values were interpretted as strings, so we had to parse thems to numbers using the <code>Number(<em>string</em>)</code> method before adding them.
+        </li>
+      </ul>
+    </li>
+    <li>
+
+    </li>
+  </ul>
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

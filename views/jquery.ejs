@@ -1,0 +1,75 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">jQuery</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <h1>jQuery</h1>
+
+  <ul>
+    <li>
+      jQuery is a library that simplifies javascript syntax, e.g. <code>document.querySelector("h1")</code> in javascript -> <code>$("h1")</code> or <code>jquery("h1")</code> with jQuery.
+    </li>
+    <li>
+      To use jQuery, best option is to use a CDN (e.g. Google's), by including a line above your javascript cript tag, e.g.: <br>
+      <code>&ltscript src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">&lt/script></code>
+    </li>
+    <li>
+      jQuery and other such libraries are 'minified', meaning that all the newlines and unnecessary spaces are removed to reduce the file size and therefore load time.
+    </li>
+    <li>
+      Example CSS color change with jQuery: <code>$("h1").css("color", "red");</code>
+    </li>
+    <li>
+      <code>.addClass("<em>className1 className2</em>")</code> and <code>.remove("<em>className1 className2</em>")</code> add and remove classes to an element, e.g. <code>$("h1").addClass("big-title");</code>
+    </li>
+    <li>
+      <code>.hasClass("<em>className</em>")</code> returns true or false boolean depending on whether the element contains that class.
+    </li>
+    <li>
+      To change text: <code>$("h1").text("<em>new text</em>")</code> or <code>$("h1").html("<em>new text with html tags</em>")</code>
+    </li>
+    <li>
+      Maniulating attributes examples: <br>
+      <code>$("img").attr("src")</code> to get the value of the <em>src</em> attribute of the image.<br>
+      <code>$("a").attr("href", "https://google.com")</code> would change the href of all anchor tags to point to Google. <br>
+      <code>$("button").attr("class")</code> would return the classes associated with the first button element.
+    </li>
+    <li>
+      Adding event listener example: <code>$("h1").click(function() {$("h1").css("color", "purple")})</code> would turn the h1's when an h1 element is clicked. <br>
+    </li>
+    <li>
+      Mousover event example: <code>$("h1").on("mousover", function {<em>do something</em>})</code>. There are many other events, such as click, all of which are listed on MDN.
+    </li>
+    <li>
+      <em>before</em> and <em>after</em> example: $("h1").before("&ltbutton><em>button text</em>&ltbutton>") will place a button before the first h1.
+    </li>
+    <li>
+      <em>prepend</em> and <em>append</em> are similar to <em>before</em> and <em>after</em>, but they add html code inside the specified html tag, at the beginning and end respectively. E.g. <code>$("h1").prepend("&ltbutton><em>button
+          text</em>&lt/button>")</code> -> <code>&lth1>&ltbutton><em>button text</em>&lt/button>H1 Text&lt/h1></code>
+    </li>
+    <li>
+      Useful animation methods - can be used with an event handler anonymous function, such as <code>.on("click, function() {...}")</code>: <br>
+      <code>$("<em>selector</em>").hide();</code> <br>
+      <code>$("<em>selector</em>").toggle();</code> - toggle hide/show <br>
+      <code>$("<em>selector</em>").fadeOut(), fadeIn(), fadeToggle()</code> <br>
+      <code>$("<em>selector</em>").slideUp(), slideDown(), slideToggle()</code> - good for dropdown elements <br>
+      <code>$("<em>selector</em>").animate({opacity: 0.5});</code> - smooth transition between current opacity value and new opacity value (50% of previous value). Has to be a css rule with a numeric value (e.g. 0.5, 20%, etc. not "red"). <br>
+      - See <a href="https://api.jquery.com/category/effects/">jQuery Effects Methods</a> for more methods.
+    </li>
+    <li>
+      You can chain animations together, e.g.:
+      <code>$("h1").slideUp().slideDown().animate({margin: 20%})</code>
+    </li>
+  </ul>
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

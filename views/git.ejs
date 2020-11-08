@@ -1,0 +1,57 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">Git and Github</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <h1>Git and Github</h1>
+  <ul>
+    <li>
+      <code>git init</code> - initialise repository as a git repo
+    </li>
+    <li>
+      <code>git log</code> - shows when commits were made, and by whom.
+    </li>
+    <li>
+      <code>git diff <em>fileName</em></code> - shows the difference between the current and the most recent committed version of the file.
+    </li>
+    <li>
+      <code>git checkout <em>fileName</em></code> - changes the file to the most recent committed version.
+    </li>
+    <li>
+      Once you've added a repo on Github, we run the following commands:
+      <ul>
+        <li>
+          <code>git remote add origin https://github.com/Gregory-Baker/Story.git</code>
+        </li>
+        <li>
+          <code>git push -u origin master</code>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <code>git rm --cached <em>fileName</em></code> - opposite of <code>git add <em>fileName</em> </code>
+    </li>
+    <li>
+      <code>git rm --cached -r .</code> - i.e. with recursive flag, allows you to unstage all files.
+    </li>
+    <li>
+      <code>git branch <em>newBranchName</em> </code> followed by <code>git checkout <em>newBranchName</em></code> creates a new branch and switches onto it. <code>git branch</code> command shows the branches and shows you which you are on.
+    </li>
+    <li>
+      From the <code>master</code> branch run <code>git merge <em>newBranchName</em></code> to merge changes into master. Note, if in vim, type <code>:q!</code> and <code>enter</code> to save and quit.
+    </li>
+
+  </ul>
+
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

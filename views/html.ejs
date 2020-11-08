@@ -1,0 +1,57 @@
+<%- include("partials/header"); -%>
+
+  <div class="title">
+    <center>
+      <h1 class="pageTitle">HTML</h1>
+    </center>
+  </div>
+
+<div class="pageBody">
+  <h3>Introduction to HTML</h3>
+
+  <ul>
+    <li> HTML tags surrounded by angle brackets: <code>&lt></code> <br>
+    <li> <code>&lth1>, ..., &lth6></code> tags = headers, large to small. End tags needed. <br>
+    <li> <code>&ltbr></code> tag = line break, does not use end tag
+    <li> <code>&ltcenter></code> tag centers content. End tag rqd.
+    <li> <code>&ltem></code> and <code>&lti></code> are 'emphasis' and 'italics' respectively. Both look like italic font. <code>&ltem></code> preferable in most situations.
+    <li> <code>&ltstrong></code> and <code>&ltb></code> both make font bold, but strong confers meaning, so it is preferred.
+    <li> <code>&ltol></code> and <code>&ltul></code> are ordered and unordered lists respectively. <code>&ltli></code> used for each item.
+    <li> <code>&ltimg src="<i>source</i>" alt="<i>text displayed if image not present</i>"></code> for images.
+    <li> <code>&lta href="https://..."><em>Link Text</em>&lt/a></code> for hyperlinks
+  </ul>
+
+  <h3>Intermediate HTML</h3>
+  <h4>Tables:</h4>
+  <ul>
+    <textarea rows="20" cols="50" readonly>
+<table>
+  <thead> (table header)
+    <tr> (table row header)
+      <th>Table Header 1<\th>
+      <th>Table Header 2<\th>
+    <\tr>
+  <\thead>
+  <tbody> (table body)
+    <tr> (table row 1)
+      <td>Table Data 1<\td>
+      <td>Table Data 2<\td>
+    <\tr>
+    <tr> (table row 2)
+      <td>Table Data 1<\td>
+      <td>Table Data 2<\td>
+    <\tr>
+    ...
+  <\tbody>
+<\table>
+    </textarea>
+  </ul>
+
+  <h4>Forms:</h4>
+  <ul>
+    <li>Important tags: <code>&ltform></code>, <code>&ltlabel></code>, <code>&ltinput></code><br></li>
+    <li>Many different input types, including <code>text</code>, <code>email</code>, <code>date</code>, <code>checkbox</code>, etc.</li>
+  </ul>
+
+</div>
+<%- include("partials/footer"); -%>

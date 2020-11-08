@@ -1,0 +1,244 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">Authentication</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <ul>
+    <li>
+      npm <code><a href="https://www.npmjs.com/package/dotenv">dotenv</a></code> package helps us secure keys, such as encryption keys or API keys.
+    </li>
+    <li>
+      Process for dotenv'ing:
+      <ul>
+        <li>
+          <code>npm install dotenv</code> to install the package
+        </li>
+        <li>
+          Add <code>require('dotenv').config()</code> to the very top of our js file.
+        </li>
+        <li>
+          Create a file called <code>.env</code> in the root directory of the project
+        </li>
+        <li>
+          In the file use NAME=VALUE pairs on each line, e.g. <br>
+  <textarea name="name" rows="3" cols="50">
+    SECRET=Thisisourlittlesecret.
+    API_KEY=dkfnsdkfnsdkfjvnr
+  </textarea>
+        </li>
+        <li>
+          Access in JS script using <code>process.env.<em>NAME</em></code>, e.g. <code>process.env.API_KEY</code>
+        </li>
+        <li>
+          include <code>.env</code> file in our <code>.gitignore</code>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Hashing = one way encryption. Once the password has been hashed, it is extremely difficult to retrieve the password, even if we know the hashing function.
+    </li>
+    <li>
+      Salting = random characters added to the end of someones password before hashing. This means that two users with the same password will have different hashed passwords. Each users 'Salt' value also has to be stored in our database. Note, salt can be applied to the resulting hash, and the result hashed again. This can happen in multiple rounds for added security.
+    </li>
+    <li>
+      We salted using the <code>bcrypt</code> module from npm:
+      <ul>
+        <li>
+          Install bcrypt using <code>npm install brcypt</code> and require it using <code>const bcrypt = require("bcrypt");</code> in the JS script.
+        </li>
+        <li>
+          Set the number of salt rounds that you want using <code>const saltRounds = 10;</code>
+        </li>
+        <li>
+          Hash a password using: <br>
+  <textarea name="name" rows="4" cols="80">
+    bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+      // Store hash in your password DB.
+    });
+  </textarea>
+        </li>
+        <li>
+          Check a password using: <br>
+  <textarea name="name" rows="4" cols="80">
+    bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
+      // result == true
+    });
+  </textarea><br>
+          Where <code>hash</code> will be the <code>user.password</code> stored from the previous method.
+        </li>
+      </ul>
+    </li>
+    <li>
+      Passport.js - with cookies and sessions:
+      <ul>
+        <li>
+          <code>npm i passport passport-local passport-local-mongoose express-session</code>
+        </li>
+        <li>
+          <code>require</code> modules, except <code>passport-local</code>. Note, we used <code>const session = require("express-session");</code> for express-session.
+        </li>
+        <li>
+          We added: <br>
+  <textarea name="name" rows="9" cols="80">
+    app.use(session({
+      secret: "Our little secret.",
+      resave: false,
+      saveUninitialized: false
+    }));
+
+    app.use(passport.initialize());
+    app.use(passport.session());
+  </textarea><br>
+          Towards the top of the <code>app.js script</code>
+        </li>
+        <li>
+          <code>userSchema.plugin(passportLocalMongoose);</code> - above the creation of the <code>mongoose.model</code>
+        </li>
+        <li>
+  <textarea name="name" rows="5" cols="80">
+    passport.use(User.createStrategy());
+
+    passport.serializeUser(User.serializeUser());
+    passport.deserializeUser(User.deserializeUser());
+  </textarea> <br>
+          Below the <code>mongoose.model</code> creation
+        </li>
+        <li>
+          Now we have access to the registration method: <br>
+  <textarea name="name" rows="8" cols="80">
+    User.register({username: req.body.username}, req.body.password, function(err, user){
+      if(err) {
+        console.log(err)
+        res.redirect("/register")
+      } else {
+        passport.authenticate("local")(req, res, function() {
+          res.redirect("/secrets");
+        })
+      }
+    })
+  </textarea> <br>
+          The user is autmatically 'logged in' to a session after registering
+        </li>
+        <li>
+          In our 'secrets' page, we test for authentification using the <code>req.isAuthenticated()</code> method.
+        </li>
+        <li>
+          The user can logout using: <code>req.logout();</code>
+        </li>
+        <li>
+          The user can then log back in using: <br>
+  <textarea name="name" rows="8" cols="80">
+    const user = new User({
+      username: req.body.username,
+      password: req.body.password
+    });
+
+    req.login(user, function(err) {
+      if (err) {
+        console.log(err)
+      } else {
+        passport.authenticate("local")(req, res, function() {
+          res.redirect("/secrets");
+        })
+      }
+    })
+  </textarea>
+        </li>
+      </ul>
+    </li>
+    <li>
+      OAuth - open authentification, allows us to use login with google/facebook etc. The steps are usually as follows:
+      <ul>
+        <li>
+          Register your app with the relevant platform(s), to get an API key and secret
+        </li>
+        <li>
+          Add the relevant passport npm package, e.g. <code>const GoogleStrategy = require('passport-google-oauth20').Strategy;
+  </code>
+        </li>
+        <li>
+          Required the <code>mongoose-findorcreate</code> package as well to simplify our database registration of users.
+        </li>
+        <li>
+          Extended the userSchema to include a <code>provider</code> field, which could be 'local', 'google', 'facebook' etc.: <br>
+  <textarea name="name" rows="8" cols="80">
+    const userSchema = new mongoose.Schema({
+      username: { type: String, unique: true }, // values: email address, googleId, facebookId
+      password: String,
+      provider: String, // values: 'local', 'google', 'facebook'
+      email: String,
+      secret: String
+    });
+  </textarea>
+        </li>
+        <li>
+          We includd the plugins: <br>
+  <textarea name="name" rows="5" cols="80">
+    userSchema.plugin(passportLocalMongoose, {
+    usernameField: "username"
+    });
+    userSchema.plugin(findOrCreate);
+  </textarea>
+        </li>
+        <li>
+          We slightly modified the <code>serializeUser</code> and <code>serializeUser</code> methods based on the Usage information <a href="http://www.passportjs.org/packages/passport-google-oauth2/">here</a>.
+        </li>
+        <li>
+          We then use the passport strategy we added: <br>
+  <textarea name="name" rows="8" cols="80">
+    passport.use(new GoogleStrategy({
+          clientID: process.env.CLIENT_ID,
+          clientSecret: process.env.CLIENT_SECRET,
+          callbackURL: "http://localhost:3000/auth/google/secrets",
+      },
+      function (accessToken, refreshToken, profile, cb) {
+          User.findOrCreate(
+            { username: profile.id },
+            {
+              provider: "google",
+              email: profile._json.email
+            },
+            function (err, user) {
+                return cb(err, user);
+            }
+          );
+      }
+  ));
+  </textarea>
+        </li>
+        <li>
+          We then <code>app.get(...)</code> for our <code>/auth/google</code> and <code>/auth/google/callback</code> routes: <br>
+  <textarea name="name" rows="8" cols="80">
+    app.get('/auth/google',
+      passport.authenticate('google', {
+          scope: ['profile', 'email']
+      })
+    );
+
+    app.get("/auth/google/secrets",
+      passport.authenticate("google", { failureRedirect: "/login" }),
+      function(req, res) {
+        // Successful authentication, redirectto secrets.
+        res.redirect('/secrets');
+      }
+    );
+  </textarea>
+        </li>
+        <li>
+          We can now use the <code>req.isAuthenticated()</code> method on the users request, which returns true if the user is authenticated by Google.
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

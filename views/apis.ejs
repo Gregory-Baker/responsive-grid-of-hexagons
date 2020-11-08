@@ -1,0 +1,72 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">APIs</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <h1>APIs</h1>
+  <ul>
+    <li>
+      We use APIs to get data from other people's websites.
+    </li>
+    <li>
+      We can get information from the API simply by visiting the APIs URL, e.g.
+  https://api.kanye.rest is an API that will return a random Kanye quote.
+    </li>
+    <li>
+      More complicated APIs have three main parts: (Example: https://jokeapi.com/v2/joke/Programming?type=oneLiner&blacklistFlags=nsfw)
+      <ul>
+        <li>Endpoints</li> - this is the root of the url (e.g. "https://jokeapi.com/v2/joke" is the endpoint)
+        <li>Paths</li> - after a slash, this will direct you to a subsection of the API (e.g. "/Programming" is a path)
+        <li>Paramters</li> - after the "?", allow you to further specify what you want. (e.g. "?type=oneLiner&blacklistFlags=nsfw") allows us to specify a one-liner joke <strong>and</strong> (&amp;) blacklist not-safe-for-work jokes.
+      </ul>
+    </li>
+    <li>
+      Authentication - usually you need a key to access APIs, which can be added in the parameters <br> e.g. https://api.demo.com/data?location=London&appid=<em>api-key</em>
+    </li>
+    <li>
+      We can use the Postman app to build API calls and display the JSON response in a more readable way. Responses can also be in other languages, such as XML and HTML.
+    </li>
+    <li>
+      <code>const https = require("https");</code> - In order to send a request to an api from our js script, we used the inbuilt Node module <strong><code>https</code></strong>, which has a <code>.get(...)</code> method, <br>
+      e.g. <code>  https.get(url, function(response) {<em>do something with response</em>;})</code>
+    </li>
+    <li>
+      Inside get function, we can call <code>response.on("data", function(data) {const weatherData = JSON.parse(data)})</code>. When data is present, this <code>.on(...)</code> is triggered. The <code>JSON.parse(data)</code> method turns the data from JSON to a javascript object (i.e. removes the quatoation marks from key strings etc.). To go from javascript object to JSON, we can use <code>JSON.stringify(<em>jsObjectName</em>)</code>.
+    </li>
+    <li>
+      We cannot use <code>res.send("<em>something</em>")</code> multiple times, as there is only one response to a request. Instead, we use <code>res.write("<em>something</em>")</code>, which can be called multiple times, followed by a final call to <code>res.send()</code>
+    </li>
+    <li>
+      In order to serve up static images and css with our html files, we first put them in a separate folder,  then use <code>app.use(express.static("<em>FolderName</em>"))</code>
+    </li>
+    <li>
+      We used <code>https.request(...)</code> method to post data to the mailchimp server. The method takes <code>url</code>, <code>options</code> and a callback <code>function(res) {...}</code> as inputs. The <code>options</code> object included <code>method: "POST"</code> and <code>auth:"<em>user:password</em>"</code> to specify what we wanted to do with the request, and provide authentication info. We asigned the returned <code>https.ClientRequest</code> object to a <code>const</code> called <code>request</code> - this is now writable stream. We used <code>request.write(<em>jsonData</em>)</code> to add the data we want to post and <code>request.end()</code> to send the data.
+    </li>
+    <li>
+      <code>response.statusCode</code> returns the status code of our https request. 200 = OK, 404 = Not found, etc.
+    </li>
+    <li>
+      <code>res.redirect("/")</code> - Sends us to a different location - in this case root. Essentially like reloading the page, which triggers <code>app.get(...)</code> again.
+    </li>
+    <li>We are using 'Heroku' to deploy our app to a hosted server. Follow the <a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true">getting started</a> steps for heroku with Node.js</li>
+    <li>
+      We changed the <code>app.listen(...)</code> port to <code>process.env.PORT || 3000</code> to allow heroku to choose a port, but also to continue listening to 3000 for our development purposes.
+    </li>
+    <li>
+      We need to create a 'Procfile' which tells heroku how to launch our app. In our case, all it contains is <code>web: node app.js</code>
+    </li>
+    <li>
+      We now call <code>heroku create</code>, followed by <code>git push heroku master</code>.
+    </li>
+  </ul>
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

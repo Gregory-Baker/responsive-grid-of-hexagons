@@ -1,0 +1,67 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">CSS</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+  <h1 name="css">CSS</h1>
+  <h3>Introduction to CSS</h3>
+
+  <ul>
+    <li>CSS (cascade style sheet) is used to style the website</li>
+    <li> You can use CSS inside an HTML tag (inline) to make local changes, e.g. <code>&ltbody style ="background-color: blue;"></code> would change the background colour of everything inside body (so everything) to blue</li>
+    <li> For changes to the whole document, we add style tags to the <code>&lthead></code> section, and add the commands between curly brackets:</li>
+    <textarea rows="5" cols="50" readonly>
+<style>
+  body{
+    background-color: blue;
+  }
+</style></textarea>
+    <li>Played around with <code>border-style</code> and <code>border-width</code> CSS properties for horizontal rules</li>
+    <li>External css file in location "css/styles.css". No need for <code>&ltstyle></code> tags, just properties only. We apply it to each page by including <code>&ltlink rel="stylesheet" href="css/styles.css"></code> within the <code>&lthead></code>
+      section of the site. Remember to delete leading "/" for relative rather than root-based file structures.</li>
+    <li> CSS Syntax: <code><span style="color: red;"> selector{property: value;}</span></code></li>
+    <li> CSS best practice is to have properties in alphabetical order.</li>
+    <li> As well as using HTML tags as selectors (e.g. <code>h1{color: blue;}</code>), you can also define classes (e.g. <code>&lth1 class="heading"></code>), which are then selected in the css style sheet using <code>.class{...}</code> (e.g.
+      <code>.heading{color:blue;}</code>). Each tag can have multiple classes if neccessary (e.g. <code>&ltimg class="mole circular"></code>). You can also use IDs - which have to be unique for a single tag on each page (e.g. <code>&lth1
+        id="main-heading"></code>). These are selected using #id (e.g. <code>#main-heading{color: blue;}</code>)
+    </li>
+  </ul>
+
+  <h3>Intermediate CSS</h3>
+  <ul>
+    <li>Name of browser tab icon is a "favicon". Needs a particular filetype "file.ico" and is inputted in <code>&lthead></code> using <code>&ltlink rel="shortcut icon" href="file.ico"></code> </li>
+    <li> <code>&ltdiv></code> is a content diveder element.</li>
+    <li> <code>border-width</code> css property can use the 'circle shorthund', i.e. top-right-down-left, e.g. <code>border-width: 0px 10px 20px 30px</code></li>
+    <li> <em>margin</em> = gap between border and other content</li>
+    <li> <em>border</em> = border of element - can be styled to be a line, dashed, dotted etc. </li>
+    <li> <em>padding</em> = space between inside of border and content of box </li>
+    <li> You can specify border style, width and colour in one line (e.g. <code>border: solid 10px blue;</code>)</li>
+    <li><code>&ltspan></code> used for inline style formatting. Span elements are only as wide as the content, unlike "block" elements like <code>&lth></code> and <code>&ltp></code>. You can get switch <em>inline</em> tags to <em>block</em> and vice
+      versa using the <code>display</code> property in css (e.g. <code>p {display: inline}</code>).</li>
+    <li>display value <em>inline-block</em> is best of both as you can change width of element <strong>and</strong> it can be displayed alongside other elements.</li>
+    <li>display value can also be set to <em>none</em> to hide the element completely. Alternatively <code>visibility: hidden</code> can be used if you want the elements 'box' to remain present. </li>
+    <li>Position property can be used to change the position of an element. </li>
+    <li><em>Relative</em> position changes position relative to 'static', i.e. default, position. For example <code> img{position: relative; top: 50px}</code> would move the image down by 50 pixels, equivalent to adding a top margin of 50 pixels.
+      However, it does not affect the position of the other objects on screen. They act as if the position is unchanged.</li>
+    <li><em>Absolute</em> position sets the margin of the element relative to it's parent. For example <code>img{position: absolute; right: 50px}</code> would set the image 50px away from the right hand border of the parent, which may be the
+      <em>body</em> element, depending on where the <em>img</em> is nested in the code. The other content will adapt to the <strong>new</strong> position of the element, unlike with relative positioning. The parent also has to have position set to
+      relative for absolute positioning to take affect.
+    </li>
+    <li><em>Fixed</em> position is used for items that remain in the position when the webpage is scrolled. This is useful for Navigation bars etc.</li>
+    <li>Use <code>font-family</code> to set font for website. Usually set backups as well, in case they don't have the chosen font installed on their computer, e.g. <code>body{font-family: Helvetica, Ariel, sans-serif}</code>. Fonts are listed in
+      order of preference (left to right), but with increasing likeliness of being installed.</li>
+    <li><code>font-size: 100%</code> and <code>font-size: 1em</code> are equivalent to 16px font. So for 80px font, we could use 500% or 5em. Unlike static sizes, e.g. <code>px</code> and <code>pt</code>, the font inherits the font size from its
+      parent and uses the new specified font size as a <strong>multiplier</strong>. This can be nullified by using <code>rem</code> instead of <code>em</code>.</li>
+    <li><code>text-align</code> can be used to align objects within a div, including text and images, e.g. <code>text-align: left;</code></li>
+    <li><code>float</code> can be used to allow text to wrap around objects. You specify which side of the container you want the object to float to, e.g. <code>float: left;</code>.</li>
+    <li><code>clear</code> can be used to stop an object from wrapping around a <code>float</code>, e.g. <code>clear: left;</code> on a paragraph would specify that the left side of the text should not wrap around a floating object.</li>
+    <li>There are many CSS button maker websites online that help when making a button for your website.</li>
+  </ul>
+
+
+</div>
+<%- include("partials/footer"); -%>

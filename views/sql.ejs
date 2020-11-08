@@ -1,0 +1,107 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">SQL</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+
+  <ul>
+    <li>
+      Useful guide to SQL <a href="https://www.w3schools.com/sql/">here</a>.
+    </li>
+    <li>
+      Create a simple products table in SQLite Online using: <br>
+  <textarea name="name" rows="7" cols="50">
+  CREATE TABLE products (
+    id INT NOT NULL,
+    name STRING,
+    price MONEY,
+    PRIMARY KEY (id)
+    )
+  </textarea><br>
+      Note: the <code>PRIMARY KEY (id)</code> specifies that id must be unique for each new item. And <code>NOT NULL</code> specifies that that colummn must have a value (i.e. not null) for every new item.
+    </li>
+    <li>
+      Add an item to the table using: <br>
+      <textarea name="name" rows="3" cols="50">
+  INSERT INTO products (id, name, price)
+  VALUES (1, "Pencil", 1.30)
+  </textarea><br>
+      Note: We did not actually need to specify <code>(id, name, price)</code>, as all columns are being assigned values, but this would be necessary if that were not the case.
+    </li>
+    <li>
+      <code>SELECT</code> Examples:
+      <ul>
+        <li>
+          <code>SELECT * FROM products</code> - shows the full (*=all) products table
+        </li>
+        <li>
+          <code>SELECT name, price FROM products</code> - shows just the name and price columns of the products table.
+        </li>
+        <li>
+          <code>SELECT * FROM products WHERE id=1</code> - shows all results from the table where id = 1. You can also use more complex <code>WHERE</code> conditions, such as greater than (>), less than (<) etc.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <code>UPDATE</code> Method: Update a value in the table: <br>
+  <textarea name="name" rows="4" cols="50">
+  UPDATE products
+  SET price = 0.80
+  WHERE id=2
+  </textarea><br>
+      Note: If we did not include the WHERE condition, it would update price to 0.80 for all items in the table.
+    </li>
+    <li>
+      Add/delete a column to the table using <code>ALTER</code>, e.g.: <br>
+  <textarea name="name" rows="3" cols="50">
+  ALTER TABLE products
+  ADD stock INT
+  </textarea> <br>
+    Adds a new colled stock to the products table with type INT.
+    </li>
+    <li>
+      <code>DELETE FROM</code> Method: <br>
+  <textarea name="name" rows="3" cols="50">
+  DELETE FROM products
+  WHERE id=2
+  </textarea><br>
+      Deletes the row(s) where the id is 2. Not, <code>WHERE</code> is neccessary otherwise all rows are deleted.
+    </li>
+    <li>
+      <code>FOREIGN KEY</code> - these are used to link tables together. <br> We created a new table called orders using: <br>
+  <textarea name="name" rows="10" cols="100">
+  CREATE TABLE orders (
+    id INT NOT NULL,
+    order_number INT,
+    customer_id INT,
+    product_id INT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+    )
+  </textarea> <br>
+      Here we use <code>FOREIGN KEY</code> to specify which columns in our new table link to columns in our other tables.
+    </li>
+    <li>
+      <code>JOIN</code> - we can use this method to create a composite table from our linked tables, e.g.: <br>
+      <textarea name="name" rows="4" cols="100">
+  SELECT orders.order_number, customers.first_name, customers.last_name, customers.address
+  FROM orders
+  INNER JOIN customers ON orders.customer_id = customers.id
+  </textarea><br>
+      This produces query outputs a table with 4 columns (order_number, first_name, last_name, address), by specifying in an <code>INNER JOIN</code> between tables, where <code>orders.customer_id = customers.id</code>. Note: There are other types of JOIN (LEFT, RIGHT, OUTER) - for more info see <a href="https://www.w3schools.com/sql/sql_join.asp">here</a>. You can also have multiple <code>INNER JOIN</code>s to different tables to almalgamate data from lots of related tables.
+    </li>
+  </ul>
+
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

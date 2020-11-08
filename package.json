@@ -1,0 +1,25 @@
+{
+  "name": "responsive-grid-of-hexagons",
+  "version": "1.0.0",
+  "description": "**[View live demo](http://web-tiki.github.io/responsive-grid-of-hexagons/)**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gregory-Baker/responsive-grid-of-hexagons.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gregory-Baker/responsive-grid-of-hexagons/issues"
+  },
+  "homepage": "https://github.com/Gregory-Baker/responsive-grid-of-hexagons#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}

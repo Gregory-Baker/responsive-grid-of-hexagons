@@ -1,0 +1,70 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">RESTful APIs</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <ul>
+    <li>
+      REST = REpresentational State Transfer
+    </li>
+    <li>
+      5 HTTP Verbs:
+      <ul>
+        <li>GET</li>
+        <li>POST</li>
+        <li>PUT</li>
+        <li>PATCH</li>
+        <li>DELETE</li>
+      </ul>
+      PUT and PATCH which both update data in our database. The difference is that PUT replaces the entire entry (e.g. document) in the datababase, whereas PATCH only changes a single field of data within the existing entry.
+    </li>
+    <li>
+      You can chain route handlers together using the following notation: <br>
+  <textarea name="name" rows="35" cols="80">
+    app.route("/articles")
+      .get(function(req, res) {
+        Article.find(function(err, foundArticles) {
+          if (!err) {
+            res.send(foundArticles);
+          } else {
+            res.send(err);
+          }
+        });
+      })
+      .post(function(req, res) {
+        const article = new Article({
+          title: req.body.title,
+          content: req.body.content
+        })
+
+        article.save(function(err) {
+          if(!err) {
+            res.send("Successfully added article");
+          } else {
+            res.send(err);
+          }
+        });
+      })
+      .delete(function(req, res) {
+        Article.deleteMany(function(err) {
+          if(!err) {
+            res.send("Deleted all articles");
+          } else {
+            res.send(err);
+          }
+        });
+      });
+  </textarea>
+    </li>
+  </ul>
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

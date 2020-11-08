@@ -1,0 +1,111 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">EJS</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <h1>EJS</h1>
+  <ul>
+    <li>
+      EJS stands for Embedded JavaScript Templates, and allows us to use javascript to alter our html text, so that we don't have to create a new html document for every possible outcome.
+    </li>
+    <li>
+      Follow the setup described <a href="https://github.com/mde/ejs/wiki/Using-EJS-with-Express">here</a>. We created a folder called "views", with a file called <code><em>>fileName</em>.ejs</code> in it. We then copy our html code into the ejs file. Where we want to have a variable in the html document we used <code>&lt%= varName %></code>. In the <code>app.js</code> file, inside the <code>app.get("/", ...)</code> callback we then used <code>res.render("<em>fileName</em>", {varName: varValue});</code>, where <em>varValue</em> was assigned according to an if-else statement.
+    </li>
+    <li>
+      The scriptlet tag (<code>&lt%</code>) allows us to do control-flow (i.e. if-else style javascript) inside the ejs (html-like) file. Every line of non-html code needs to be enclosed with <code>&lt% ... %></code> tags, e.g.<br>
+      <code> &lt% if (day === "Thursday") %> <br>
+      &emsp;&lth1 style="color: blue">Hello&lt/h1> <br>
+      &lt% } %></code>
+    </li>
+    <li>
+      Scope: Note difference between <code>var x = 2;</code> and <code>let x = 2;</code> in JavaScript is that <code>let</code> is contained locally within loops (if-else, for etc.), whereas <code>var</code> is accessible outside these loops. Both are contained locally within functions. It is best practive to use <code>let</code> instead of <code>var</code> to keep scope of variables as limited as possible. Note, <code>const</code> is also contained within loops and (of course) functions.
+    </li>
+    <li>
+      To get our server to serve up our stylesheet (styles.css) and other stuff like audio files and images, we put them all in a folder called public, then call <code>app.use(express.static("public"))</code>
+    </li>
+    <li>
+      CSS selector tips:
+      <ul>
+        <li>
+          <code>input:checked+p {...}</code> selector allows you to target all elements that come after a checked input. <code>+p</code> can be used for other selectors as well, not just checked inputs.
+        </li>
+        <li>
+          <code>selector:first-child</code> and <code>selector:last-child</code> allow you to style the first and last child of a selector differently to the rest.
+        </li>
+        <li>
+          <code>input[type="checkbox"] {...}</code> - allows you to target all inputs with a type of checkbox.
+        </li>
+        <li>
+          <code>::placeholder {...} </code> - targets placeholder text (of a text input in our case).
+        </li>
+        <li>
+          See <a href="https://www.w3schools.com/cssref/css_selectors.asp">here</a> for more selectors.
+        </li>
+      </ul>
+    </li>
+    <li>
+      In order to create a separate "Work List", we created a new route "/work" by adding an <code>app.get("/work", ...)</code>. Inside the callback we <code>res.render("list", {listTitle: "Work List", newListItems: workItems})</code>. where workItems is a new items array we set up. In order to catch posts to the work list, we added to our submit button attributes <code>name="list"</code> and <code>value="&lt%= listTitle %>"</code>. Now when someone posts using this button, the post still goes to root ("/"), but we can run logic within our <code>app.post("/", ...)</code> callback to filter the different cases, e.g. <code>if (req.body.list === "Work List" {...} else {...})</code>.
+    </li>
+    <li>
+      Layouts: <br>
+      You can move sections of html code that are repeated across several pages in your website into separate files, e.g.:
+      <ul>
+        <li>
+          <code>header.ejs</code>, which contains everything upto and including the &ltbody> tag, and
+        </li>
+        <li>
+          <code>footer.ejs</code>, which contains everything from &lt/body> onwards.
+        </li>
+      </ul>
+      You can then include these elements in your files using, e.g.
+      <ul>
+        <li>
+          <code>&lt%- include("header") -%></code> at the top of the file, and
+        </li>
+        <li>
+          <code>&lt%- include("footer") -%></code> at the bottom.
+        </li>
+      </ul>
+    </li>
+    <li>
+      If we want to separate out a custom function, e.g. <code>getDate()</code> into a separate file, e.g. <code>date.js</code> which is on the same level as our <code>app.js</code>. If we then put <code>module.exports.getDate = getDate;</code> in <code>date.js</code> above the function, we can then access the function by requiring it, e.g. <code>const date = require(__dirname + "/date.js")</code>, then call it using <code>date.getDate();</code>. We can have multiple functions in <code>date.js</code>. To simplify the <code>date.js</code> file, we can use anonymous functions instead, e.g. <code>module.exports.getDay = function () {...}</code>, or even simpler <code>exports.getDay = function () {...}</code>, which Node interprets as the same thing.
+    </li>
+    <li>
+      JS Note:
+      <ul>
+        <li>
+          <code>const</code> arrays can still have elements added using the <code>myArray.push(<em>myElement</em>)</code> method.
+        </li>
+        <li>
+          <code>const</code> objects can still have values changed, e.g. myObject.<em>key</em> = <em>newValue</em>.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <code><em>myArray</em>.forEach( function(element) {<em>do something with element</em>})</code> - this method allows you to loop through each element of an array more easily.
+    </li>
+    <li>
+      Route parameters: See <a href="https://expressjs.com/en/guide/routing.html#route-parameters">here</a> for info on route parameters. Route parameters are named URL segments that are used to capture the values specified at their position in the URL. The captured values are populated in the req.params object, with the name of the route parameter specified in the path as their respective keys, e.g. <code>app.get('/users/:userId, function (req, res) {console.log(req.params)})</code> will store the word that someone places after <code>/users/</code>, in a javascript object, with a key of userId, e.g. a request to /users/1234 => <code>req.params = {userId: "1234"}</code>
+    </li>
+    <li>
+      <a href="https://lodash.com">Lodash</a> - after installing the npm package lodash, and requiring it in the <code>app.js</code> script, using <code>var _ = require("lodash")</code> we used the method <code>_.lowerCase("<em>myString</em>")</code>, which makes string comparisons easier, especially for express route parameters. All characters are converted to lowercase and hyphens are converted to spaces.
+    </li>
+    <li>
+      <code>myArray.some(function(element) {<em>do something with each element</em>})</code> works like <code>myArray.forEach(...)</code>, but breaks out of the loop when the first true value is returned.
+    </li>
+    <li>
+      <code>myString.slice(<em>start</em>, <em>stop</em>)</code> and <code>myString.substring(<em>start</em>, <em>stop</em>)</code> can both be used to extract a section of a string, starting from the start index and finishing at the stop index.
+    </li>
+  </ul>
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>

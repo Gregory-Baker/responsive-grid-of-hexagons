@@ -1,0 +1,84 @@
+<%- include("partials/header"); -%>
+
+<div class="title">
+  <center>
+    <h1 class="pageTitle">MongoDB</h1>
+  </center>
+</div>
+
+<div class="pageBody">
+
+  <ul>
+    <li>
+      Documentation <a href="https://docs.mongodb.com/manual/reference/mongo-shell/">here</a>. CRUD docs <a href="https://docs.mongodb.com/manual/crud/">here</a>.
+    </li>
+    <li>
+      Vim hint: <code>i</code> - enter insert mode.
+    </li>
+    <li>
+      We used a .msi installer to install MongoDB Community Server, then added the path to mongo.exe and mongod.exe to ~/.bash_profile to alias them as <code>mongo</code> and <code>mongod</code> respectively. We also added a folder <code>C:\data\db</code> which is where our data will be stored.
+    </li>
+    <li>
+      To start a db, we run <code>mongod</code>, open a new terminal tab and run <code>mongo</code>.
+    </li>
+  </ul>
+  Useful MongoDB shell commands:
+  <ul>
+    <li>
+      <code>help</code> - shows what commands you can run
+    </li>
+    <li>
+      <code>show dbs</code> - shows a list of dbs
+    </li>
+    <li>
+      <code>use <em>dbName</em></code> - set current database
+    </li>
+    <li>
+      <code>db</code> - shows current database
+    </li>
+    <li>
+      <code>db.<em>collectionName</em>.insertOne(<em>javascriptDocument object</em>)</code> - A collection is similar to a table in SQL and a 'document' is similar to a row. If the collection doesn't exit, this command will add it. (e.g. <code>db.products.insertOne({_id: 1, name: "Pen", price: 1.20})</code>)
+    </li>
+    <li>
+      <code>.insertMany(<em>docName</em>)</code> - inserts multiple documents at once.
+    </li>
+    <li>
+      <code>db.collection.find(query, projection)</code> - "query" allows us to query our database and "projection" allows us to specify what fields of the data we want back. Examples: <br>
+      <code>db.products.find()</code> - shows all documents in the product collection <br>
+      <code>db.products.find({name: "Pencil"})</code> - shows all documents with a name of "Pencil" <br>
+      <code>db.products.find({price: { $lt: 1 }, stock: { $gt: 4 }})</code> - returns all documents with a price less than 1.00 and stock greater than 4. <br>
+      <code>db.products.find({name: "Pen"}, {price: 1, _id: 0})</code> - returns price of the product with <code>name = "Pen"</code>. Note: <code>_id: 0</code> is used to stop the <code>id</code>being returned as well - which it is by default.
+    </li>
+    <li>
+      <code>db.products.updateOne({name: "Pen"}, {$set: {stock: 32}})</code> - adds a new field of stock to our "Pen" document and sets its value to 32.
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      Note: You can specify objects and arrays within documents, e.g. <code>... reviews: [{author: "Tim", rating: 4}, {author: "Tam", rating: 3}], ...</code>
+    </li>
+    <li>
+      <code>db.dropDatabase()</code> - deletes active database from MongoDB
+    </li>
+  </ul>
+
+  MongoDB Driver for NodeJS
+  <ul>
+    <li>
+      We installed the driver using <code>npm install mongodb</code>. I selected the version 3.1.8 to match the video, using <code>npm install mongodb@3.1.8</code>
+    </li>
+    <li>
+      Found the quick start code in a deprecated documentation section, <a href="http://mongodb.github.io/node-mongodb-native/3.1/quick-start/quick-start/#find-documents-with-a-query-filter">here</a>.
+    </li>
+    <li>
+      Note: <code>sudo pkill -f mongod</code> to kill mongod if you have closed the terminal but forgot to shut mongod down.
+    </li>
+  </ul>
+
+
+
+
+
+</div>
+<%- include("partials/footer"); -%>
